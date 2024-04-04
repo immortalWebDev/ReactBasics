@@ -1,4 +1,3 @@
-
 import "./ExpenseDate.css"
 
 const months = [
