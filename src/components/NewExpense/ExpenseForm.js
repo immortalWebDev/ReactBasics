@@ -32,7 +32,7 @@ const formSubmitHandler = (event) => {
   event.preventDefault()
   const expenseData = {
     title: enteredTitle,
-    amount: enteredAmount,
+    price: enteredAmount,
     date: new Date(enteredDate),
   }
 //   console.log(expenseData)
