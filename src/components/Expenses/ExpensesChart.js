@@ -6,7 +6,7 @@ const ExpensesChart = (props) => {
 
 return (
     <div>
-        <Chart chartExpenses={props.chartData}></Chart>
+        <Chart chartExpenses={props.filteredExpensesForChart}></Chart>
     </div>
 )
 }

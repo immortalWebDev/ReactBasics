@@ -1,5 +1,6 @@
 import React from "react";
 import ChartBar from "./ChartBar";
+import "./Chart.css"
 
 const Chart = (props) => {
   const expensesOnlyArray = props.chartExpenses.map((monthExpenseData) => {
@@ -7,8 +8,8 @@ const Chart = (props) => {
   });
 
   // console.log(expensesOnlyArray)
-  const maxVal = Math.max(...expensesOnlyArray);
-  // console.log(maxVal)
+  const maxValue = Math.max(...expensesOnlyArray);
+  // console.log(maxValue)
 
   const chartData = [
     { expenseMonth: "Jan", expenseValue: 0 },
@@ -38,15 +39,15 @@ const Chart = (props) => {
 
   return (
 
-    <div>
+    <div className="chart">
       {chartData.map((monthData) => {
-        
+
         return (
           <ChartBar
             key={monthData.expenseMonth}
             label={monthData.expenseMonth}
             value={monthData.expenseValue}
-            maxVal={maxVal}
+            maxValue={maxValue}
           ></ChartBar>
         );
       })}

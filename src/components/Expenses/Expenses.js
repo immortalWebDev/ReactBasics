@@ -23,7 +23,7 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={changeFilterHandler}
       />
-      <ExpensesChart chartData={filteredExpenses}></ExpensesChart>
+      <ExpensesChart filteredExpensesForChart={filteredExpenses}></ExpensesChart>
       <ExpensesList items={filteredExpenses} />
     </Card>
   );
