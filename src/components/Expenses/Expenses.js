@@ -1,3 +1,5 @@
+// Write your code at relevant places in the code below:
+
 import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 import ExpensesFilter from "./ExpensesFilter";
@@ -11,9 +13,29 @@ const Expenses = (props) => {
     setFilteredYear(selectedYear);
   };
 
-  const filteredExpenses = props.expenses.filter((expense) =>{
-    return expense.date.getFullYear().toString() === filteredYear
-  })
+  const filteredExpenses = props.expenses.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
+
+  let expensesContent = <p>No expenses found</p>;
+
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => {
+      return (
+        <>
+          <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            date={expense.date}
+            price={expense.price}
+          />
+          {filteredExpenses.length === 1 && (
+          <p>Only one expense found. Please add more</p>
+          )}
+        </>
+      );
+    });
+  }
 
   return (
     <Card className="expenses">
@@ -21,16 +43,7 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={changeFilterHandler}
       />
-      {filteredExpenses.map((expense) => {
-        return (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            date={expense.date}
-            price={expense.price}
-          />
-        );
-      })}
+      {expensesContent}
     </Card>
   );
 };
