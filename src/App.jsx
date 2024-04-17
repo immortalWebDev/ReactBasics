@@ -12,8 +12,11 @@ const App = () => {
     return
     else
     {
-      setCounter(counter + 1) 
+      setCounter((prevCounter) => prevCounter + 1) 
+      setCounter((prevCounter) => prevCounter + 1) 
+      setCounter((prevCounter) => prevCounter + 1) 
     }
+    
   
   };
  
@@ -23,7 +26,9 @@ const App = () => {
     return
     else 
     {
-      setCounter(counter - 1)
+      setCounter((prevCounter) => prevCounter - 1) 
+      setCounter((prevCounter) => prevCounter - 1) 
+      setCounter((prevCounter) => prevCounter - 1) 
     }
 
   }
