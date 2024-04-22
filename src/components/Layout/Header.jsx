@@ -8,7 +8,7 @@ const Header = (props) => {
   return (
     <>
       <header className={classes.header}>
-        <h1>React Meals</h1>
+        <h1>React Da Dhaba</h1>
         {/* <button>Cart: 0</button> */}
         <HeaderCartButton></HeaderCartButton>
       </header>
