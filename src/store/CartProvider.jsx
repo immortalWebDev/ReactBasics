@@ -1,67 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import { useReducer } from 'react';
+
 import CartContext from './cart-context';
 
+const defaultCartState = {
+  items: [],
+  totalAmount: 0,
+};
+
+const cartReducer = (state, action) => {
+  if (action.type === 'ADD') {
+    const updatedTotalAmount =
+      state.totalAmount + action.item.price * action.item.amount;
+
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.item.id
+    );
+    const existingCartItem = state.items[existingCartItemIndex];
+    let updatedItems;
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount + action.item.amount,
+      };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItems = state.items.concat(action.item);
+    }
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+    };
+  }
+  if (action.type === 'REMOVE') {
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
+    const existingItem = state.items[existingCartItemIndex];
+    const updatedTotalAmount = state.totalAmount - existingItem.price;
+    let updatedItems;
+    if (existingItem.amount === 1) {
+      updatedItems = state.items.filter(item => item.id !== action.id);
+    } else {
+      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    }
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount
+    };
+  }
+
+  return defaultCartState;
+};
+
 const CartProvider = (props) => {
-  const [items, setItems] = useState([]);
+  const [cartState, dispatchCartAction] = useReducer(
+    cartReducer,
+    defaultCartState
+  );
 
-  // Function to add an item to the cart
   const addItemToCartHandler = (item) => {
-
-    // // console.log(item)
-    // const existingItemIndex = items.findIndex((cartItem) => cartItem.id === item.id);
-
-    // if (existingItemIndex !== -1) {
-    //   // Item already exists in the cart, update its quantity
-    //   const updatedItems = [...items];
-    //   console.log(...items)
-    //   updatedItems[existingItemIndex].quantity += item.quantity;
-    //   setItems(updatedItems);
-
-    //   console.log(updatedItems)
-    // } else {
-    //   // Item does not exist in the cart, add it as a new item
-      setItems((prevItems) => [...prevItems, item]);
-    // }
-
-        
-
+    dispatchCartAction({ type: 'ADD', item: item });
   };
 
-  // Function to remove an item from the cart (not implemented in this example)
   const removeItemFromCartHandler = (id) => {
-    // Implement this function to remove an item from the cart based on its ID
-    // Example:
-    // const updatedItems = items.filter((item) => item.id !== id);
-    // setItems(updatedItems);
+    dispatchCartAction({ type: 'REMOVE', id: id });
   };
 
-  // Function to calculate the total amount of items in the cart
-  const calculateTotalAmount = () => {
-    return items.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
-  };
-
-  // State to manage the total amount in the cart
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  // useEffect hook to update totalAmount when items change
-  useEffect(() => {
-    // Calculate the new total amount
-    const newTotalAmount = calculateTotalAmount();
-    // Update the totalAmount state with the new value
-    setTotalAmount(newTotalAmount);
-  }, [items]); // Re-run this effect whenever items change
-
-  // Create the cart context object to provide to consumers
   const cartContext = {
-    items: items,
-    totalAmount: totalAmount,
+    items: cartState.items,
+    totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };
 
-  // Render the CartContext.Provider with the cartContext value and child components
   return (
     <CartContext.Provider value={cartContext}>
       {props.children}
@@ -70,5 +87,3 @@ const CartProvider = (props) => {
 };
 
 export default CartProvider;
-
-
