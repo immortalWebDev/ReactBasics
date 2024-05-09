@@ -1,25 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { CartContext } from "./context/CartProvider";
 
-const Cart = ({ show, handleClose, cartElements, setCartElements }) => {
+const Cart = () => {
     
-  const [cart, setCart] = useState(cartElements);
+  const { showCart, handleClose, cartElements,cart,handleRemove } = useContext(CartContext);
 
-  const handleRemove = (index) => {
-    const updatedCart = [...cart];
-    updatedCart[index].quantity -= 1;
-
-    if (updatedCart[index].quantity === 0) {
-      updatedCart.splice(index, 1);
-    }
-
-    setCart(updatedCart);
-    setCartElements(updatedCart);
-  };
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={showCart} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Cart</Modal.Title>
         </Modal.Header>

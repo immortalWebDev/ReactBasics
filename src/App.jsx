@@ -1,16 +1,15 @@
 import React from 'react';
 import Body from './component/Body';
+import { CartProvider } from './component/context/CartProvider';
 
 function App() {
-  
-
   return (
-    <div>
-      <Body></Body>
-    </div>
-   
-    
-  )
+    <CartProvider>
+      <div>
+        <Body />
+      </div>
+    </CartProvider>
+  );
 }
 
-export default App
+export default App;

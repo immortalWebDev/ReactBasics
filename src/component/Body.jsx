@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
 import Footer from "./Footer";
 import CardComponent from "./CardComponent";
 import Cart from "./Cart";
-import { cartElements } from "./cartElements";
+import { CartContext } from "./context/CartProvider";
 
 const Body = () => {
-  const [showCart, setShowCart] = useState(false);
 
-  const handleClose = () => setShowCart(false);
-  const handleShow = () => setShowCart(true);
+  const {cart,handleShow} = useContext(CartContext);
 
   return (
     <>
@@ -19,7 +17,13 @@ const Body = () => {
           <Navbar.Brand style={{ marginRight: "50px" }}>Store</Navbar.Brand>
           <Navbar.Brand>About</Navbar.Brand>
         </Container>
-         <Button className="ml-auto" onClick={handleShow} style={{marginRight:"10px"}}>Cart</Button>
+        <Button
+          className="ml-auto"
+          onClick={handleShow}
+          style={{ marginRight: "10px" }}
+        >
+          Cart: {cart.length}
+        </Button>
       </Navbar>
 
       <div
@@ -34,11 +38,7 @@ const Body = () => {
 
       <CardComponent></CardComponent>
 
-      <Cart
-        show={showCart}
-        handleClose={handleClose}
-        cartElements={cartElements}
-      />
+      <Cart/>
 
       <Footer></Footer>
     </>
