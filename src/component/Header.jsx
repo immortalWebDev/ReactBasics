@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { CartContext } from "./context/CartProvider";
+import './header.css'
 
 const Header = () => {
   const { cart, handleShow } = useContext(CartContext);
@@ -10,12 +11,11 @@ const Header = () => {
     <>
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container className="justify-content-center">
-          <Navbar.Brand as={Link} to="/" style={{ marginRight: "50px" }}>
+          <Navbar.Brand as={NavLink} to="/" style={{ marginRight: "50px" }} activeClassName="active">
             Home
           </Navbar.Brand>
           <Navbar.Brand style={{ marginRight: "50px" }}>Store</Navbar.Brand>
-          {/* <Navbar.Brand>About</Navbar.Brand> */}
-          <Navbar.Brand as={Link} to="/about">
+          <Navbar.Brand as={NavLink} to="/about" activeClassName="active">
             About
           </Navbar.Brand>
         </Container>
