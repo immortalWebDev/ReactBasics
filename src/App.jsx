@@ -1,5 +1,5 @@
 import React from 'react';
-import Body from './component/Body';
+import Body from './component/Home';
 import { CartProvider } from './component/context/CartProvider';
 
 function App() {
@@ -13,3 +13,5 @@ function App() {
 }
 
 export default App;
+
+

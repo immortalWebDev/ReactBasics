@@ -4,7 +4,6 @@ import { productsArr } from "./productsArr";
 import { CartContext } from "./context/CartProvider";
 
 const CardComponent = () => {
-
   const { addToCart } = useContext(CartContext);
 
   return (

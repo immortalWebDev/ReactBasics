@@ -3,9 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 import { CartContext } from "./context/CartProvider";
 
 const Cart = () => {
-    
-  const { showCart, handleClose, cartElements,cart,handleRemove } = useContext(CartContext);
-
+  const { showCart, handleClose, cartElements, cart, handleRemove } =
+    useContext(CartContext);
 
   return (
     <>
