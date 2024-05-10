@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, {useContext } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { CartContext } from "./context/CartProvider";
 
 const Cart = () => {
-  const { showCart, handleClose, cartElements, cart, handleRemove } =
+  const { showCart, handleClose,cart, handleRemove } =
     useContext(CartContext);
 
   return (
@@ -12,7 +12,8 @@ const Cart = () => {
         <Modal.Header closeButton>
           <Modal.Title>Cart</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ maxHeight: "400px", overflowY: "auto" }}>
+
           {cart.length === 0 ? (
             <p style={{ fontWeight: "bold", fontSize: "1.2rem" }}>
               Your cart is empty

@@ -1,10 +1,8 @@
 import React from "react";
+import CardComponent from '../CardComponent'
+import Cart from "../Cart";
 
-import Footer from "./Footer";
-import CardComponent from "./CardComponent";
-import Cart from "./Cart";
-
-const Home = () => {
+const Store = () => {
   return (
     <>
       <div
@@ -18,12 +16,9 @@ const Home = () => {
       </div>
 
       <CardComponent></CardComponent>
-
       <Cart />
-
-      <Footer></Footer>
     </>
   );
 };
 
-export default Home;
+export default Store;

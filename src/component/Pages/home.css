@@ -1,0 +1,48 @@
+.banner {
+    /* Styles for the banner section */
+    text-align: center;
+    
+  }
+  
+  .banner img {
+    /* Styles for the banner image */
+    width: 100%;
+    
+    /* Adjust width as needed */
+  }
+  
+  .banner h1 {
+    /* Styles for the banner title */
+    font-size: 3em;
+    
+  }
+  
+  .tours {
+    /* Styles for the tours section */
+    padding: 30px;
+  }
+  
+  .tours h2 {
+    /* Styles for the tours heading */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  
+  .tours li {
+    /* Styles for each tour list item */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .tours li a {
+    /* Styles for the buy tickets button */
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  
