@@ -4,10 +4,12 @@ import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [isLoading,setIsLoading] = useState(false)
 
   //Converted to async await with try & catch blocks
   async function fetchMoviesHandler() {
     try {
+      setIsLoading(true)
       const response = await fetch('https://swapi.dev/api/films/');
       const data = await response.json();
 
@@ -21,6 +23,7 @@ function App() {
       });
 
       setMovies(transformedMovies);
+      setIsLoading(false)
     } catch (error) {
       console.error('Error fetching movies:', error);
     }
@@ -32,7 +35,9 @@ function App() {
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
       <section>
-        <MoviesList movies={movies} />
+        {!isLoading && <MoviesList movies={movies} />}
+        {!isLoading && movies.length === 0 && <p>No movies found. Fetch to check again.</p>}
+        {isLoading && <p>Loading...</p>}
       </section>
     </React.Fragment>
   );
