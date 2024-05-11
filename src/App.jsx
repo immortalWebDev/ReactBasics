@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 
@@ -8,14 +8,13 @@ function App() {
   const [error, setError] = useState(null);
   const [retryInterval, setRetryInterval] = useState(null);
 
-  
-  async function fetchMoviesHandler() {
+  const fetchMoviesHandler = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
       const response = await fetch("https://swapi.dev/api/films/");
 
-      //Error handling
+      // Error handling
       if (!response.ok) {
         throw new Error("Something went wrong, Retrying...");
       }
@@ -32,32 +31,32 @@ function App() {
 
       setMovies(transformedMovies);
       setIsLoading(false);
-
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
       retryFetchMovies();
     }
-  }
+  }, []);
 
-  // Function to retry fetching movies after an interval
-  function retryFetchMovies() {
+  const retryFetchMovies = useCallback(() => {
     setRetryInterval(setInterval(fetchMoviesHandler, 5000));
-  }
+  }, [fetchMoviesHandler]);
 
-  // Function to cancel retrying
-  function cancelRetry() {
+  const cancelRetry = useCallback(() => {
     clearInterval(retryInterval);
     setIsLoading(false);
     setError(null);
-  }
+  }, [retryInterval]);
 
-  // Cleanup function to clear retry interval on component unmount
   useEffect(() => {
     return () => {
       clearInterval(retryInterval);
     };
   }, [retryInterval]);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
   return (
     <React.Fragment>
