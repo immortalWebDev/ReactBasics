@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import AddMovieForm from "./components/AddMovieForm";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -48,6 +49,11 @@ function App() {
     setError(null);
   }, [retryInterval]);
 
+
+  const addMovieHandler = (movie) => {
+    setMovies((prevMovies) => [...prevMovies, movie]);
+  };
+
   useEffect(() => {
     return () => {
       clearInterval(retryInterval);
@@ -60,6 +66,9 @@ function App() {
 
   return (
     <React.Fragment>
+      <section>
+        <AddMovieForm onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
