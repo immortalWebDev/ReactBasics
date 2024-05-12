@@ -30,6 +30,9 @@ const Header = () => {
           <Navbar.Brand as={NavLink} to="/about" activeclassname="active">
             About
           </Navbar.Brand>
+          <Navbar.Brand as={NavLink} to="/contactus" activeclassname="active" style={{ marginLeft: "30px" }} >
+            Contact us
+          </Navbar.Brand>
         </Container>
         <Button
           className="ml-auto"
