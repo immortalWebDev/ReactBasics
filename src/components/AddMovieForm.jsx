@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './AddMovieForm.css'; 
 
-const AddMovieForm = ({ onAddMovie }) => {
+const AddMovieForm = (props) => {
+
+  const {onAddMovie} = props
+  
   const [title, setTitle] = useState('');
   const [openingText, setOpeningText] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
