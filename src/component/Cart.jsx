@@ -29,7 +29,7 @@ const Cart = () => {
                   }}
                 >
                   <img
-                    src={item.imageUrl}
+                    src={item.images[0]}
                     alt={item.title}
                     style={{ width: "50px", marginRight: "10px" }}
                   />

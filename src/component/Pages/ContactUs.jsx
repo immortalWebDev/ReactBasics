@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ContactUs.css";
+import Cart from "../Cart";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -57,6 +58,7 @@ const ContactUs = () => {
 
   return (
     <div className="contact-form-container">
+        <Cart></Cart>
       <h2>Contact Us</h2>
       <form onSubmit={submitHandler} className="contact-form">
         <div className="form-group">
