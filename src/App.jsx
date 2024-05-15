@@ -6,11 +6,13 @@ import UserProfile from "./components/Profile/UserProfile";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import AuthContext from "./store/auth-context";
+import AutoLogout from "./components/AutoLogout";
 
 function App() {
   const authCtx = useContext(AuthContext);
   return (
     <Layout>
+      <AutoLogout></AutoLogout>
       <Switch>
         <Route path="/" exact>
           <HomePage />

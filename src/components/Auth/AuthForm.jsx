@@ -1,4 +1,4 @@
-import { useState, useRef ,useContext} from "react";
+import { useState, useRef ,useContext,useEffect} from "react";
 import { useHistory } from 'react-router-dom'
 
 import classes from "./AuthForm.module.css";
@@ -13,6 +13,25 @@ const AuthForm = () => {
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  // useEffect(() => {
+  //   console.log("AuthForm useEffect triggered");
+  //   let logoutTimer;
+  //   if (authCtx.isLoggedIn) {
+  //     console.log("User logged in. Starting logout timer.");
+  //     logoutTimer = setTimeout(() => {
+  //       console.log("Auto logout triggered.");
+  //       authCtx.logout();
+  //       history.replace("/login"); // Redirect to login page after logout
+  //     }, 5000); // 5 seconds for testing purposes
+  //   }
+
+  //   return () => {
+  //     console.log("Clean-up function called.");
+  //     clearTimeout(logoutTimer);
+  //   };
+  // }, [authCtx.isLoggedIn, history, authCtx]);
+
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
