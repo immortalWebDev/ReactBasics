@@ -6,11 +6,15 @@ import AuthContext from '../../store/auth-context';
 
 const MainNavigation = () => {
  const authCtx = useContext(AuthContext)
+//  const history = useHistory(); //if want to show login page upon logout
+
 
  const isLoggedIn = authCtx.isLoggedIn
 
  const logOutHandler = () => {
   authCtx.logout()
+  // history.replace('/auth');
+
  }
 
 
