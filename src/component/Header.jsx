@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink ,useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { CartContext } from "./context/CartProvider";
 import "./header.css";
@@ -16,13 +16,22 @@ const Header = () => {
 
   const logOutHandler = () => {
     authCtx.logout();
-    navigate('/login')
+    navigate("/login");
+  };
 
+  const handleStoreClick = (event) => {
+    console.log("Clicked store");
+    console.log("Log in status:", isLoggedIn);
+    if (!isLoggedIn) {
+      event.preventDefault();
+      console.log("Redirecting to login page...");
+      navigate("/login");
+    }
   };
 
   return (
     <>
-      <Navbar bg="dark" expand="sm" variant="dark" >
+      <Navbar bg="dark" expand="sm" variant="dark">
         <Container className="justify-content-center">
           <Navbar.Brand
             style={{ marginRight: "50px" }}
@@ -35,6 +44,7 @@ const Header = () => {
           <Navbar.Brand
             as={NavLink}
             to="/store"
+            onClick={handleStoreClick} // Handle click event for Store page
             activeclassname="active"
             style={{ marginRight: "50px" }}
           >
