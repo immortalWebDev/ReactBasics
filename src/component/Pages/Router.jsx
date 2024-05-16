@@ -45,8 +45,9 @@ import About from "./About";
 import Store from "./Store";
 import ContactUS from "./ContactUs";
 import ProductDetail from "./ProductDetail";
+import AuthForm from "./AuthForm";
 
-function Routev5() {
+function Router() {
   return (
     <div>
       <Routes>
@@ -55,9 +56,10 @@ function Routev5() {
         <Route path="/store" element={<Store />} />
         <Route path="/contactus" element={<ContactUS />} />
         <Route path="/products/:productId" element={<ProductDetail />} />
+        <Route path="/login" element={<AuthForm/>}/>
       </Routes>
     </div>
   );
 }
 
-export default Routev5;
+export default Router;

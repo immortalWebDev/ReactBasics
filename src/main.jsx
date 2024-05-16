@@ -2,23 +2,17 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { CartProvider } from './component/context/CartProvider.jsx';
-import Routev5 from './component/Pages/Router.jsx';
-import Header from './component/Header.jsx'
-import Footer from './component/Footer.jsx'
 import '../node_modules/bootstrap/dist/js/bootstrap.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter } from 'react-router-dom';
+import App from './App.jsx';
+import { AuthContextProvider } from './component/context/auth-context.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+
   <React.StrictMode>
-    <CartProvider>
-      <BrowserRouter>
-      <Header></Header>
-        <Routev5 />
-        <Footer></Footer>
-      </BrowserRouter>
-    </CartProvider>
+    <AuthContextProvider>
+    <App/>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
