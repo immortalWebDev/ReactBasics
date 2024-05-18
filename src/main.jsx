@@ -6,14 +6,19 @@ import '../node_modules/bootstrap/dist/js/bootstrap.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import App from './App.jsx';
 import { AuthContextProvider } from './component/context/auth-context.jsx';
+import { CartProvider } from './component/context/CartProvider.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  <React.StrictMode>
+  // <React.StrictMode>
+    <CartProvider>
     <AuthContextProvider>
+      
     <App/>
+    
     </AuthContextProvider>
-  </React.StrictMode>
+    </CartProvider>
+  // </React.StrictMode>
 );
 
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState,useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { CartContext } from "./context/CartProvider";
@@ -14,8 +14,16 @@ const Header = () => {
 
   const isLoggedIn = authCtx.isLoggedIn;
 
+  const [cartCount, setCartCount] = useState(cart.length);
+
+  useEffect(() => {
+    setCartCount(cart.length); // Update cart count when cart changes
+  }, [cart]);
+
+
   const logOutHandler = () => {
     authCtx.logout();
+    setCartCount(0); // Reset cart count to zero on logout
     navigate("/login");
   };
 
@@ -83,12 +91,14 @@ const Header = () => {
             </Navbar.Brand>
           )}
         </Container>
+
+        
         <Button
           className="ml-auto"
           onClick={handleShow}
           style={{ marginRight: "10px" }}
         >
-          Cart: {cart.length}
+          Cart: {cartCount}
         </Button>
       </Navbar>
     </>

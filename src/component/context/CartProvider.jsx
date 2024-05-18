@@ -1,12 +1,10 @@
-import React, { createContext, useState } from "react";
-import { cartElements } from "../cartElements";
+import React, { createContext, useState ,useEffect} from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
-
-  const [cart, setCart] = useState(cartElements);
+  const [cart, setCart] = useState([]);
 
   const handleClose = () => setShowCart(false);
   const handleShow = () => setShowCart(true);
@@ -41,19 +39,41 @@ export const CartProvider = ({ children }) => {
     setCart(updatedCart);
   };
 
-  const contextValue = { cart, handleShow };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userEmail = localStorage.getItem("userEmail");
+        if (!userEmail) {
+          throw new Error("User email not found");
+        }
+        const response = await fetch(
+          `https://react-http-api-ae8f7-default-rtdb.firebaseio.com/cart/${userEmail.replace(".", "")}.json`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch cart data");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (localStorage.getItem("token")) {
+      fetchData();
+    }
+  }, []);
+
+  
 
   return (
     <CartContext.Provider
       value={{
-        cart,
-        addToCart,
         showCart,
         handleClose,
         handleShow,
-        cartElements,
+        cart,
+        addToCart,
         handleRemove,
-        contextValue,
+        setCart,
       }}
     >
       {children}

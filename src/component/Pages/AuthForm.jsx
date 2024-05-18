@@ -1,14 +1,17 @@
-import { useState, useRef ,useContext} from "react";
-import { useNavigate } from 'react-router-dom'
+import { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 import AuthContext from "../context/auth-context";
+import { CartContext } from "../context/CartProvider"; // Import CartContext
+import Cart from "../Cart";
 
 const AuthForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const authCtx = useContext(AuthContext)
+  const authCtx = useContext(AuthContext);
+  const cartCtx = useContext(CartContext); // Access CartContext
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,7 +22,7 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAW9WTtlwepGK4ckucebGnvvBM6cMe1wa0`
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAW9WTtlwepGK4ckucebGnvvBM6cMe1wa0`;
 
     fetch(url, {
       method: "POST",
@@ -42,15 +45,15 @@ const AuthForm = () => {
             if (data && data.error && data.error.message) {
               errorMessage = data.error.message;
             }
-            
             throw new Error(errorMessage);
           });
         }
       })
       .then((data) => {
-        console.log(data);
-        authCtx.login(data.idToken)
-        navigate('/store')
+        console.log("The response of auth from firebase server: ",data);
+        authCtx.login(data.idToken);
+        localStorage.setItem("userEmail", enteredEmail); // Store user's email in local storage
+        navigate("/store");
       })
       .catch((err) => {
         alert(err.message);
@@ -58,7 +61,8 @@ const AuthForm = () => {
   };
 
   return (
-    <section className={classes.auth} >
+    <section className={classes.auth}>
+        <Cart></Cart>
       <h1>Login</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
@@ -75,9 +79,7 @@ const AuthForm = () => {
           />
         </div>
         <div className={classes.actions}>
-          {!isLoading && (
-            <button>Login</button>
-          )}
+          {!isLoading && <button>Login</button>}
           {isLoading && <p>Sending request...</p>}
         </div>
       </form>
