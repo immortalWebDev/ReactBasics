@@ -1,55 +1,30 @@
-// //Using v6 createBrowserRouter way
-// import { createBrowserRouter } from "react-router-dom";
-// import Layout from "../Layout/Layout";
-// import Home from './Home'
-// import About from "./About";
-// import Store from './Store'
-// import ContactUS from "./ContactUs";
-
-// const router = createBrowserRouter([
-//   {
-//     element: <Layout />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Home />,
-//       },
-//       {
-//         path: "/about",
-//         element: <About />,
-//       },
-//       {
-//         path: "/store",
-//         element: <Store />,
-//       },
-//       {
-//         path: "/contactus",
-//         element: <ContactUS />,
-//       },
-//       {
-//         path: "/products/:productId",
-//         element: <ProductDetail />,
-//       }
-//     ],
-//   },
-// ]);
-
-// export default router;
-
-//Using v6 Route component way
-
-import React from "react";
+import React, { lazy,Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Home";
-import About from "./About";
-import Store from "./Store";
-import ContactUS from "./ContactUs";
-import ProductDetail from "./ProductDetail";
-import AuthForm from "./AuthForm";
 
-function Router() {
+//Lazy loading
+// import Home from "./Home";
+const Home = lazy(() => import("./Home"))
+
+// import About from "./About";
+const About = lazy(() => import("./About"))
+
+// import Store from "./Store";
+const Store = lazy(() => import("./Store"))
+
+// import ContactUS from "./ContactUs";
+const ContactUS = lazy(() => import("./ContactUs"))
+
+// import ProductDetail from "./ProductDetail";
+const ProductDetail = lazy(() => import("./ProductDetail"))
+
+// import AuthForm from "./AuthForm";
+const AuthForm = lazy(() => import("./AuthForm"))
+
+
+const Router = () => {
   return (
     <div>
+      <Suspense fallback={<h3>Loading...</h3>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -58,6 +33,7 @@ function Router() {
         <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/login" element={<AuthForm/>}/>
       </Routes>
+      </Suspense>
     </div>
   );
 }
